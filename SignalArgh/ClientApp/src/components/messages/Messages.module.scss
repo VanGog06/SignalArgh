@@ -1,0 +1,12 @@
+.messages {
+  border: 1px solid #000;
+  margin: 10px;
+  max-height: 300px;
+  min-height: 300px;
+  overflow-y: auto;
+  padding: 5px;
+
+  &_author {
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,11 @@
+.username {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+
+  &__input {
+    flex: 1;
+    margin-right: 10px;
+  }
+}
