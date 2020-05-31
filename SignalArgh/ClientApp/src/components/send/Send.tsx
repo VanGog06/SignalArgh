@@ -28,7 +28,7 @@ export const Send: React.FC = (): JSX.Element => {
     } catch (err) {
       dispatch(triggerError(err.message));
     }
-  }, [connection, setMessage, message]);
+  }, [connection, setMessage, message, dispatch]);
 
   const handleKeyUp = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>): void => {

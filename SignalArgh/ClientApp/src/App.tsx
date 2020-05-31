@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { Chat } from './components/chat/Chat';
+import { Notification } from './components/notification/Notification';
 import { Username } from './components/username/Username';
 import { ChatProvider } from './context/ChatContext';
 import { store } from './store/store';
@@ -26,6 +27,8 @@ function App() {
           </ChatProvider>
         </Switch>
       </BrowserRouter>
+
+      <Notification />
     </Provider>
   );
 }

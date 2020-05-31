@@ -80,7 +80,7 @@ export const ChatProvider: React.FC = ({ children }) => {
       connection.stop();
       setConnection(undefined);
     };
-  }, [setConnection, changeChat]);
+  }, [setConnection, changeChat, dispatch]);
 
   return (
     <ChatContext.Provider
