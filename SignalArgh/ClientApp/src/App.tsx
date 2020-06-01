@@ -1,5 +1,6 @@
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
+import 'emoji-mart/css/emoji-mart.css';
 
 import React from 'react';
 import { Provider } from 'react-redux';

@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 
 import { ChatContext, IChatContext } from '../../context/ChatContext';
 import { NotificationActions, triggerError } from '../../store/notifications/NotificationActions';
+import { Emojis } from '../emojis/Emojis';
 import styles from './Send.module.scss';
 
 export const Send: React.FC = (): JSX.Element => {
@@ -15,6 +16,13 @@ export const Send: React.FC = (): JSX.Element => {
   const changeMessage = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>): void => {
       setMessage(event.target.value);
+    },
+    [setMessage]
+  );
+
+  const changeEmoji = useCallback(
+    (emoji: string): void => {
+      setMessage((pm: string) => `${pm}${emoji}`);
     },
     [setMessage]
   );
@@ -50,6 +58,7 @@ export const Send: React.FC = (): JSX.Element => {
         onKeyUp={handleKeyUp}
         onChange={changeMessage}
       />
+      <Emojis changeEmoji={changeEmoji} />
       <button onClick={send}>Send</button>
     </div>
   );

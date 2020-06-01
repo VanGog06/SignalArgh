@@ -1,0 +1,13 @@
+.emojis {
+  position: absolute;
+  right: 4rem;
+  top: 0.05rem;
+
+  &__img {
+    position: relative;
+  }
+
+  &__img:hover {
+    cursor: pointer;
+  }
+}
