@@ -14,9 +14,9 @@ import { store } from './store/store';
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <Switch>
-          <ChatProvider>
+      <ChatProvider>
+        <BrowserRouter>
+          <Switch>
             <Route path="/chat">
               <Chat />
             </Route>
@@ -24,9 +24,9 @@ function App() {
             <Route exact path="/">
               <Username />
             </Route>
-          </ChatProvider>
-        </Switch>
-      </BrowserRouter>
+          </Switch>
+        </BrowserRouter>
+      </ChatProvider>
 
       <Notification />
     </Provider>

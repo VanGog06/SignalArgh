@@ -20,10 +20,10 @@ export const Send: React.FC = (): JSX.Element => {
   );
 
   const send = useCallback(async (): Promise<void> => {
-    const date: string = new Date().toLocaleDateString();
+    const date: string = new Date().toLocaleString();
 
     try {
-      await connection?.send("newMessage", date, message);
+      await connection?.invoke("newMessage", date, message);
       setMessage("");
     } catch (err) {
       dispatch(triggerError(err.message));

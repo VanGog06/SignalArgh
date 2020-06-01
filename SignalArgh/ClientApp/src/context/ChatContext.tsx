@@ -1,4 +1,3 @@
-import { cloneDeep } from 'lodash';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -33,16 +32,6 @@ export const ChatProvider: React.FC = ({ children }) => {
     undefined
   );
 
-  const changeChat = useCallback(
-    (newRow: ChatRow): void => {
-      const currentChat = cloneDeep(chat);
-      currentChat.push(newRow);
-
-      setChat(currentChat);
-    },
-    [setChat, chat]
-  );
-
   const changeUsername = useCallback(
     (enteredUsername: string): void => {
       setUsername(enteredUsername);
@@ -66,7 +55,7 @@ export const ChatProvider: React.FC = ({ children }) => {
       .build();
 
     connection.on("messageReceived", (date: string, message: string) => {
-      changeChat({ date, message });
+      setChat((pv: ChatRow[]) => [...pv, { date, message }]);
     });
 
     try {
@@ -76,11 +65,12 @@ export const ChatProvider: React.FC = ({ children }) => {
       dispatch(triggerError(err.message));
     }
 
-    return () => {
+    return (): void => {
+      console.warn("Unmounted");
       connection.stop();
       setConnection(undefined);
     };
-  }, [setConnection, changeChat, dispatch]);
+  }, [dispatch]);
 
   return (
     <ChatContext.Provider
