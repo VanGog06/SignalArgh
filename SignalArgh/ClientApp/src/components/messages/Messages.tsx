@@ -5,7 +5,7 @@ import { ChatRow } from '../../models/ChatRow';
 import styles from './Messages.module.scss';
 
 export const Messages: React.FC = (): JSX.Element => {
-  const { chat }: IChatContext = useContext(ChatContext);
+  const { chat, username }: IChatContext = useContext(ChatContext);
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -19,7 +19,11 @@ export const Messages: React.FC = (): JSX.Element => {
       {chat.map((c: ChatRow, index: number) => {
         return (
           <div ref={divRef} key={index}>
-            <div className={styles.messages_author}>{c.date}</div>
+            <div>
+              <span className={styles.messages__author}>{username}</span>
+              &nbsp;
+              <span className={styles.messages__date}>{c.date}</span>
+            </div>
             <div>{c.message}</div>
           </div>
         );
