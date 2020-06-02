@@ -1,5 +1,6 @@
 import { BaseEmoji, EmojiData, Picker } from 'emoji-mart';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
 
 import smiley from '../../smiley.svg';
 import styles from './Emojis.module.scss';
@@ -8,12 +9,36 @@ import { IEmojisProps } from './IEmojisProps';
 export const Emojis: React.FC<IEmojisProps> = ({
   changeEmoji,
 }: IEmojisProps): JSX.Element => {
+  const emojiWindowRef = useRef<HTMLDivElement>(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
 
-  const handleEmojiSelect = (emojiData: EmojiData) => {
-    const emoji: string = (emojiData as BaseEmoji)?.native;
-    changeEmoji(emoji);
-  };
+  const handleDocumentClick = useCallback(
+    (event: MouseEvent) => {
+      const node: HTMLDivElement | null = emojiWindowRef.current;
+      if (node && event.target) {
+        if (!node.contains(event.target as Element)) {
+          setShowEmojiPicker(false);
+        }
+      }
+    },
+    [setShowEmojiPicker]
+  );
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleDocumentClick, false);
+
+    return () => {
+      document.removeEventListener("mousedown", handleDocumentClick, false);
+    };
+  }, [handleDocumentClick]);
+
+  const handleEmojiSelect = useCallback(
+    (emojiData: EmojiData) => {
+      const emoji: string = (emojiData as BaseEmoji)?.native;
+      changeEmoji(emoji);
+    },
+    [changeEmoji]
+  );
 
   const toggleEmojiPicker = useCallback(() => {
     setShowEmojiPicker((pv: boolean) => !pv);
@@ -30,12 +55,9 @@ export const Emojis: React.FC<IEmojisProps> = ({
         onClick={toggleEmojiPicker}
       />
       {showEmojiPicker && (
-        <Picker
-          style={{ position: "absolute", top: "1.5rem", right: "0" }}
-          native
-          emojiTooltip
-          onSelect={handleEmojiSelect}
-        />
+        <div ref={emojiWindowRef} className={styles.emojis__picker}>
+          <Picker onSelect={handleEmojiSelect} />
+        </div>
       )}
     </div>
   );

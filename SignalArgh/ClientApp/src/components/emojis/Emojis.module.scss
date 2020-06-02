@@ -10,4 +10,10 @@
   &__img:hover {
     cursor: pointer;
   }
+
+  &__picker {
+    position: absolute;
+    top: 1.5rem;
+    right: 0;
+  }
 }
