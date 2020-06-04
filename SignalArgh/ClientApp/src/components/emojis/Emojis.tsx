@@ -1,6 +1,5 @@
 import { BaseEmoji, EmojiData, Picker } from 'emoji-mart';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
 
 import smiley from '../../smiley.svg';
 import styles from './Emojis.module.scss';

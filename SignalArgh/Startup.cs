@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SignalArgh.Hubs;
+using SignalArgh.Models;
+
+[assembly: UserSecretsId("a0165e9b-7586-4891-80e4-39842f49ddcf")]
 
 namespace SignalArgh
 {
@@ -24,6 +27,8 @@ namespace SignalArgh
 
             services.AddControllersWithViews();
             services.AddSignalR();
+
+            services.Configure<Giphy>(Configuration.GetSection("Giphy"));
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -54,9 +59,9 @@ namespace SignalArgh
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapControllerRoute(
-                //    name: "default",
-                //    pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}/{action=Index}/{id?}");
 
                 endpoints.MapHub<ChatHub>("/hub");
             });

@@ -33,6 +33,7 @@ export const Username: React.FC = (): JSX.Element => {
   return (
     <div className={styles.username}>
       <label htmlFor="message">Enter username:</label>
+      &nbsp;
       <input
         type="text"
         id="message"

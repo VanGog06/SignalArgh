@@ -50,6 +50,7 @@ export const Send: React.FC = (): JSX.Element => {
   return (
     <div className={styles.send}>
       <label htmlFor="message">Message:</label>
+      &nbsp;
       <input
         type="text"
         id="message"
