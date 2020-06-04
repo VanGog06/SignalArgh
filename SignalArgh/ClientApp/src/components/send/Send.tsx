@@ -5,6 +5,7 @@ import { Dispatch } from 'redux';
 import { ChatContext, IChatContext } from '../../context/ChatContext';
 import { NotificationActions, triggerError } from '../../store/notifications/NotificationActions';
 import { Emojis } from '../emojis/Emojis';
+import { Gif } from '../gif/Gif';
 import styles from './Send.module.scss';
 
 export const Send: React.FC = (): JSX.Element => {
@@ -60,6 +61,7 @@ export const Send: React.FC = (): JSX.Element => {
         onChange={changeMessage}
       />
       <Emojis changeEmoji={changeEmoji} />
+      <Gif />
       <button onClick={send}>Send</button>
     </div>
   );

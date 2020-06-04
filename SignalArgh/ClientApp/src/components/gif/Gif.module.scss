@@ -1,6 +1,6 @@
-.emojis {
+.gifs {
   position: absolute;
-  right: 5.5rem;
+  right: 4rem;
   top: 0.05rem;
 
   &__img {
@@ -9,11 +9,5 @@
 
   &__img:hover {
     cursor: pointer;
-  }
-
-  &__picker {
-    position: absolute;
-    top: 1.5rem;
-    right: 0;
   }
 }

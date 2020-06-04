@@ -3,9 +3,12 @@ import React, { useCallback, useState } from 'react';
 import { IGif } from '@giphy/js-types';
 import { Gif as GifComponent } from '@giphy/react-components';
 
+import gif from '../../gif.svg';
+import styles from './Gif.module.scss';
 import { GifGrid } from './grid/GifGrid';
 
 export const Gif: React.FC = (): JSX.Element => {
+  const [showGifGrid, setShowGifGrid] = useState<boolean>(false);
   const [selectedGif, setSelectedGid] = useState<IGif | undefined>();
 
   const handleGifClick = useCallback(
@@ -16,10 +19,22 @@ export const Gif: React.FC = (): JSX.Element => {
     [setSelectedGid]
   );
 
+  const handleShowGifGrid = useCallback(() => {
+    setShowGifGrid((pv: boolean) => !pv);
+  }, [setShowGifGrid]);
+
   return (
-    <>
-      <GifGrid onGifClick={handleGifClick} />
-      {selectedGif && (
+    <div className={styles.gifs}>
+      <img
+        className={styles.gifs__img}
+        width={15}
+        height={15}
+        src={gif}
+        alt="Gif picker icon"
+        onClick={handleShowGifGrid}
+      />
+      {showGifGrid && <GifGrid onGifClick={handleGifClick} />}
+      {/* {selectedGif && (
         <div
           style={{
             position: "fixed",
@@ -39,7 +54,7 @@ export const Gif: React.FC = (): JSX.Element => {
         >
           <GifComponent gif={selectedGif} width={200} />
         </div>
-      )}
-    </>
+      )} */}
+    </div>
   );
 };

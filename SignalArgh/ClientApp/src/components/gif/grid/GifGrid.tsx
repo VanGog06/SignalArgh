@@ -9,8 +9,12 @@ import { Grid } from '@giphy/react-components';
 import {
     NotificationActions, triggerError
 } from '../../../store/notifications/NotificationActions';
+import styles from './GifGrid.module.scss';
+import { IGifGridProps } from './IGifGridProps';
 
-export const GifGrid: React.FC<any> = ({ onGifClick }: any): JSX.Element => {
+export const GifGrid: React.FC<IGifGridProps> = ({
+  onGifClick,
+}: IGifGridProps): JSX.Element => {
   const dispatch = useDispatch<Dispatch<NotificationActions>>();
 
   const giphyFetch: React.MutableRefObject<GiphyFetch | undefined> = useRef<
@@ -47,6 +51,7 @@ export const GifGrid: React.FC<any> = ({ onGifClick }: any): JSX.Element => {
 
   return (
     <Grid
+      className={styles.gifGrid}
       onGifClick={onGifClick}
       fetchGifs={fetchGifs}
       width={800}
