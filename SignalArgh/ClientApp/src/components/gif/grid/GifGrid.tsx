@@ -14,12 +14,16 @@ import { IGifGridProps } from './IGifGridProps';
 
 export const GifGrid: React.FC<IGifGridProps> = ({
   onGifClick,
+  hideGifGrid,
 }: IGifGridProps): JSX.Element => {
   const dispatch = useDispatch<Dispatch<NotificationActions>>();
 
   const giphyFetch: React.MutableRefObject<GiphyFetch | undefined> = useRef<
     GiphyFetch
   >();
+  const gifGridRef: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(
+    null
+  );
 
   useEffect(() => {
     (async () => {
@@ -49,14 +53,35 @@ export const GifGrid: React.FC<IGifGridProps> = ({
     [giphyFetch]
   );
 
+  const handleDocumentClick = useCallback(
+    (event: MouseEvent) => {
+      const node: HTMLDivElement | null = gifGridRef.current;
+      if (node && event.target) {
+        if (!node.contains(event.target as Element)) {
+          hideGifGrid();
+        }
+      }
+    },
+    [hideGifGrid]
+  );
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleDocumentClick, false);
+
+    return () => {
+      document.removeEventListener("mousedown", handleDocumentClick, false);
+    };
+  }, [handleDocumentClick]);
+
   return (
-    <Grid
-      className={styles.gifGrid}
-      onGifClick={onGifClick}
-      fetchGifs={fetchGifs}
-      width={800}
-      columns={3}
-      gutter={6}
-    />
+    <div ref={gifGridRef} className={styles.gifGrid}>
+      <Grid
+        onGifClick={onGifClick}
+        fetchGifs={fetchGifs}
+        width={1200}
+        columns={6}
+        gutter={6}
+      />
+    </div>
   );
 };

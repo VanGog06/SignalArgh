@@ -19,8 +19,12 @@ export const Gif: React.FC = (): JSX.Element => {
     [setSelectedGid]
   );
 
-  const handleShowGifGrid = useCallback(() => {
+  const handleShowGifGrid = useCallback((): void => {
     setShowGifGrid((pv: boolean) => !pv);
+  }, [setShowGifGrid]);
+
+  const hideGifGrid = useCallback((): void => {
+    setShowGifGrid(false);
   }, [setShowGifGrid]);
 
   return (
@@ -33,7 +37,9 @@ export const Gif: React.FC = (): JSX.Element => {
         alt="Gif picker icon"
         onClick={handleShowGifGrid}
       />
-      {showGifGrid && <GifGrid onGifClick={handleGifClick} />}
+      {showGifGrid && (
+        <GifGrid onGifClick={handleGifClick} hideGifGrid={hideGifGrid} />
+      )}
       {/* {selectedGif && (
         <div
           style={{
