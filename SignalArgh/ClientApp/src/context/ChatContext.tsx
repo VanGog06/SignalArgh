@@ -54,8 +54,8 @@ export const ChatProvider: React.FC = ({ children }) => {
       .withUrl("/hub")
       .build();
 
-    connection.on("messageReceived", (date: string, message: string) => {
-      setChat((pv: ChatRow[]) => [...pv, { date, message }]);
+    connection.on("messageReceived", (chatData: ChatRow): void => {
+      setChat((pv: ChatRow[]) => [...pv, { ...chatData }]);
     });
 
     try {
@@ -66,7 +66,6 @@ export const ChatProvider: React.FC = ({ children }) => {
     }
 
     return (): void => {
-      console.warn("Unmounted");
       connection.stop();
       setConnection(undefined);
     };

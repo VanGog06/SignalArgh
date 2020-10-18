@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { ChatContext, IChatContext } from '../../context/ChatContext';
+import { ChatRow } from '../../models/ChatRow';
 import { NotificationActions, triggerError } from '../../store/notifications/NotificationActions';
 import { Emojis } from '../emojis/Emojis';
 import { Gif } from '../gif/Gif';
@@ -10,7 +11,7 @@ import styles from './Send.module.scss';
 
 export const Send: React.FC = (): JSX.Element => {
   const dispatch = useDispatch<Dispatch<NotificationActions>>();
-  const { connection }: IChatContext = useContext(ChatContext);
+  const { connection, username }: IChatContext = useContext(ChatContext);
 
   const [message, setMessage] = useState<string>("");
 
@@ -29,10 +30,14 @@ export const Send: React.FC = (): JSX.Element => {
   );
 
   const send = useCallback(async (): Promise<void> => {
-    const date: string = new Date().toLocaleString();
+    const chatRowToSend: ChatRow = {
+      date: new Date().toLocaleDateString(),
+      message,
+      username,
+    };
 
     try {
-      await connection?.invoke("newMessage", date, message);
+      await connection?.invoke("newMessage", chatRowToSend);
       setMessage("");
     } catch (err) {
       dispatch(triggerError(err.message));
