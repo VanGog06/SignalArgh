@@ -21,7 +21,7 @@
     "@types/redux-logger": "^3.0.8",
     "emoji-mart": "^3.0.0",
     "lodash": "^4.17.15",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
